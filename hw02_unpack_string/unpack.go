@@ -10,7 +10,7 @@ var ErrInvalidString = errors.New("invalid string")
 
 func Unpack(str string) (string, error) {
 	var alpha, digit rune
-	var result string
+	var result strings.Builder
 
 	for _, r := range str {
 		if string(r) == " " {
@@ -21,16 +21,18 @@ func Unpack(str string) (string, error) {
 			if alpha == 0 {
 				return "", ErrInvalidString
 			}
-			result += strings.Repeat(string(alpha), int(digit)-'0')
+			for i := 0; i < int(digit)-'0'; i++ {
+				result.WriteRune(alpha)
+			}
 			alpha = 0
 			continue
 		} else if alpha != 0 {
-			result += string(alpha)
+			result.WriteRune(alpha)
 		}
 		alpha = r
 	}
 	if alpha != 0 {
-		result += string(alpha)
+		result.WriteRune(alpha)
 	}
-	return result, nil
+	return result.String(), nil
 }
