@@ -43,6 +43,15 @@ var text = `Как видите, он  спускается  по  лестни�
 	посидеть у огня и послушать какую-нибудь интересную сказку.
 		В этот вечер...`
 
+var engText = `So creeping. Saying seasons creepeth thing without said us waters seasons were. Give fruit isn't signs 
+	May beginning they're land. Fruitful male it replenish without heaven unto years.
+
+	Dominion seed greater spirit kind may without earth our you'll is don't that firmament created make our itself 
+	earth be every was earth blessed, earth he to. Was were you midst winged upon void. Man, them whose subdue also.
+
+	Given face great face he made isn't. All tree hath fruitful together under. Had were winged void thing midst 
+	Void image be over good after morning. Is third face forth spirit, be. Firmament.`
+
 func TestTop10(t *testing.T) {
 	t.Run("no words in empty string", func(t *testing.T) {
 		require.Len(t, Top10(""), 0)
@@ -56,5 +65,15 @@ func TestTop10(t *testing.T) {
 			expected := []string{"он", "и", "а", "что", "ты", "не", "если", "-", "то", "Кристофер"}
 			require.ElementsMatch(t, expected, Top10(text))
 		}
+	})
+
+	t.Run("positive Eng text", func(t *testing.T) {
+		expected := []string{"earth", "face", "without", "be", "thing", "he", "midst", "winged", "seasons", "our", "were"}
+		require.Subset(t, expected, Top10(engText))
+	})
+
+	t.Run("positive Eng text with special characters", func(t *testing.T) {
+		text = "\n \t \r \n word"
+		require.Subset(t, []string{"word"}, Top10(text))
 	})
 }
