@@ -43,3 +43,14 @@ func TestUnpackInvalidString(t *testing.T) {
 		})
 	}
 }
+
+func TestWhiteStringWithWhitespaces(t *testing.T) {
+	invalidStrings := []string{" ", " Q4", "z b5", "x4 "}
+	for _, tc := range invalidStrings {
+		tc := tc
+		t.Run(tc, func(t *testing.T) {
+			_, err := Unpack(tc)
+			require.Truef(t, errors.Is(err, ErrInvalidString), "actual error %q", err)
+		})
+	}
+}
