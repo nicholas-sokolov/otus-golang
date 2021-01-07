@@ -9,15 +9,14 @@ type WordMap map[string]int
 func Top10(inputStr string) []string {
 	freqMap := make(WordMap)
 	for _, word := range strings.Fields(inputStr) {
-		counter := freqMap[word]
-		counter++
-		freqMap[word] = counter
+		freqMap[word]++
 	}
 	if len(freqMap) == 0 {
 		return nil
 	}
 
-	result := make([]string, 0)
+	threshold := 10
+	result := make([]string, 0, threshold)
 	for key := range freqMap {
 		result = append(result, key)
 	}
@@ -26,7 +25,6 @@ func Top10(inputStr string) []string {
 		return freqMap[result[i]] > freqMap[result[j]]
 	})
 
-	threshold := 10
 	if len(result) < threshold {
 		threshold = len(result)
 	}
