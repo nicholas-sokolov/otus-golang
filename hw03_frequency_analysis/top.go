@@ -15,8 +15,7 @@ func Top10(inputStr string) []string {
 		return nil
 	}
 
-	threshold := 10
-	result := make([]string, 0, threshold)
+	result := make([]string, 0, len(freqMap))
 	for key := range freqMap {
 		result = append(result, key)
 	}
@@ -25,6 +24,7 @@ func Top10(inputStr string) []string {
 		return freqMap[result[i]] > freqMap[result[j]]
 	})
 
+	threshold := 10
 	if len(result) < threshold {
 		threshold = len(result)
 	}
