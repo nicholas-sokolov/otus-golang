@@ -10,13 +10,13 @@ import (
 )
 
 var (
-	// ErrUnsupportedFile is happening when file is not supported
+	// ErrUnsupportedFile is happening when file is not supported.
 	ErrUnsupportedFile = errors.New("unsupported file")
-	// ErrOffsetExceedsFileSize is happening when offset exceeds the file size
+	// ErrOffsetExceedsFileSize is happening when offset exceeds the file size.
 	ErrOffsetExceedsFileSize = errors.New("offset exceeds file size")
 )
 
-// Copy is analog of regular cp
+// Copy is analog of regular cp.
 func Copy(fromPath, toPath string, offset, limit int64) error {
 	srcStat, err := os.Stat(fromPath)
 	if err != nil {
